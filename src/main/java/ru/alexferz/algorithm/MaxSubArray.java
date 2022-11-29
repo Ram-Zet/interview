@@ -18,25 +18,79 @@ public class MaxSubArray {
         int r = 0;
         int currentSum = nums[0];
         int prevSum = nums[0];
-        while (l != nums.length - 1 && r != nums.length - 1) {
-            if (currentSum <= 0) {
-                r++;
-                l = r;
-                currentSum = nums[l];
-                prevSum = nums[l];
-            } else if (l == r || currentSum > prevSum || nums[l] > 0) {
-                r++;
-                prevSum = currentSum;
-                currentSum = currentSum + nums[r];
-            } else {
-                l++;
-                prevSum = currentSum;
-                currentSum = currentSum - nums[l - 1];
-            }
-            if (currentSum > maxSum) {
+        while (true) {
+            if (maxSum < currentSum) {
                 maxSum = currentSum;
+            }
+            if (currentSum <= 0 || l == r) {
+                r = r + 1;
+                l = l + 1;
+                if (l == nums.length) break;
+                currentSum = nums[r];
+            } else if (currentSum < prevSum) {
+                prevSum = currentSum;
+                currentSum = currentSum - nums[l];
+                l++;
+            } else {
+                prevSum = currentSum;
+                if (r == nums.length-1) {
+                    break;
+                }
+                currentSum = currentSum + nums[r];
             }
         }
         return maxSum;
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    private static int maxSubArraySum(int[] nums) {
+//        int maxSum = nums[0];
+//        int l = 0;
+//        int r = 0;
+//        int currentSum = nums[0];
+//        int prevSum = nums[0];
+//        while (l != nums.length - 1 && r != nums.length - 1) {
+//            if (currentSum <= 0) {
+//                r++;
+//                l = r;
+//                currentSum = nums[l];
+//                prevSum = nums[l];
+//            } else if (l == r || currentSum > prevSum || nums[l] > 0) {
+//                r++;
+//                prevSum = currentSum;
+//                currentSum = currentSum + nums[r];
+//            } else {
+//                l++;
+//                prevSum = currentSum;
+//                currentSum = currentSum - nums[l - 1];
+//            }
+//            if (currentSum > maxSum) {
+//                maxSum = currentSum;
+//            }
+//        }
+//        return maxSum;
+//    }
 }
